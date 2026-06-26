@@ -9,15 +9,15 @@
 :root{--blue:#1565c0;--green:#2e7d32;--ink:#17324d;--muted:#66788a;--bg:#f5f8fc;--card:#fff;--line:#dfe7ef}
 *{box-sizing:border-box} body{margin:0;font:15px/1.5 system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}
 header{background:linear-gradient(135deg,#0d47a1,#1976d2);color:#fff;padding:22px 16px;text-align:center} header h1{font-size:28px;margin:0 0 4px} header p{margin:0;opacity:.9}
-main{max-width:1060px;margin:22px auto;padding:0 16px}.grid{display:grid;grid-template-columns:340px 1fr;gap:20px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 4px 14px rgba(19,50,77,.05)}
+main{max-width:1060px;margin:22px auto;padding:0 16px}.grid{display:grid;grid-template-columns:340px 1fr;gap:20px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}footer{text-align:center;color:var(--muted);font-size:12px;margin-top:40px;padding:20px 16px}
 h2{font-size:19px;margin:0 0 14px} h3{font-size:16px;margin:16px 0 8px}.hidden{display:none!important}
 label{font-weight:650;display:block;margin:12px 0 6px} input,select,button{font:inherit}input,select{width:100%;border:1px solid #c8d5e2;padding:10px 11px;border-radius:9px;background:#fff}
-.row{display:flex;gap:8px;flex-wrap:wrap}.choice{border:1px solid #c8d5e2;border-radius:9px;padding:8px 10px;cursor:pointer;background:#fff}.choice input{width:auto;margin-right:4px}.choice:has(input:checked){border-color:var(--blue);background:#edf5ff}
-button{border:0;border-radius:9px;padding:10px 14px;background:var(--blue);color:#fff;font-weight:650;cursor:pointer}button.secondary{background:#edf3f8;color:var(--ink)}button.green{background:var(--green)}button:hover{filter:brightness(.96)}
+.row{display:flex;gap:8px;flex-wrap:wrap}.choice{border:1px solid #c8d5e2;border-radius:9px;padding:8px 10px;cursor:pointer;background:#fff}.choice input{width:auto;margin-right:4px}.choice:has(input:checked){background:#e3f2fd;border-color:#1565c0}
+button{border:0;border-radius:9px;padding:10px 14px;background:var(--blue);color:#fff;font-weight:650;cursor:pointer}button.secondary{background:#edf3f8;color:var(--ink)}button.green{background:var(--green);color:#fff}button:hover{opacity:.9}
 #map{height:430px;border-radius:13px;border:1px solid var(--line);overflow:hidden}.toolbar{display:flex;gap:8px;margin-bottom:10px}.toolbar input{flex:1}
-#status{color:var(--muted);margin:9px 0 0}.weather{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}.metric{padding:10px;border-radius:10px;background:#f4f8fb;text-align:center}.metric strong{display:block;font-size:17px}.advice{background:#f0f7f1;border-left:4px solid var(--green);padding:11px 12px;border-radius:7px;margin-top:12px}
-.months{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.month{background:#eef3f7;color:#667;padding:5px 8px;border-radius:999px;font-size:12px}.month.good{background:#dcefdc;color:#216128}.month.best{background:#a5d6a7;color:#174f20;font-weight:700}
-#route{margin-top:20px}.route-day{border-left:3px solid #5a9fe5;padding:9px 12px;margin:10px 0;background:#f8fbff;border-radius:0 9px 9px 0}.route-day b{display:block}.small{font-size:12px;color:var(--muted)}footer{text-align:center;padding:24px;color:var(--muted)}
+#status{color:var(--muted);margin:9px 0 0}.weather{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}.metric{padding:10px;border-radius:10px;background:#f4f8fb;text-align:center}.metric span{display:block;font-size:13px;color:var(--muted)}.metric strong{display:block;font-size:20px;margin-top:6px;color:var(--ink)}.advice{background:#fffbea;border-left:3px solid #ffc107;padding:12px;border-radius:6px;margin:12px 0;font-size:14px}
+.months{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.month{background:#eef3f7;color:#667;padding:5px 8px;border-radius:999px;font-size:12px}.month.good{background:#dcefdc;color:#216128}.month.best{background:#bbdefb;color:#0d47a1;font-weight:650}
+#route{margin-top:20px}.route-day{border-left:3px solid #5a9fe5;padding:9px 12px;margin:10px 0;background:#f8fbff;border-radius:0 9px 9px 0}.route-day b{display:block}.small{font-size:12px;color:var(--muted)}
 @media(max-width:800px){.grid{grid-template-columns:1fr}.weather{grid-template-columns:repeat(2,1fr)}#map{height:360px}}
 </style>
 </head>
@@ -110,7 +110,7 @@ $('saveProfile').addEventListener('click',()=>{
   if($('remember').checked) localStorage.setItem(storageKey,JSON.stringify(p)); else localStorage.removeItem(storageKey);
   $('profileStatus').textContent='Profile saved for this session.';
 });
-$('clearProfile').addEventListener('click',()=>{localStorage.removeItem(storageKey);state.profile={gender:'',age:'',chronic:'',menstruation:''};document.querySelectorAll('input[type="radio"]').forEach(x=>x.checked=false);$('age').value='';$('remember').checked=false;toggleMenstruation();$('profileStatus').textContent='Profile cleared.';});
+$('clearProfile').addEventListener('click',()=>{localStorage.removeItem(storageKey);state.profile={gender:'',age:'',chronic:'',menstruation:''};document.querySelectorAll('input[type="radio"]').forEach(el=>el.checked=false);$('age').value='';$('profileStatus').textContent='Profile cleared.';});
 
 const map=L.map('map').setView([25.2048,55.2708],3);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'}).addTo(map);
@@ -118,7 +118,7 @@ map.on('click',e=>selectDestination(e.latlng.lat,e.latlng.lng));
 if(navigator.geolocation){navigator.geolocation.getCurrentPosition(pos=>map.setView([pos.coords.latitude,pos.coords.longitude],9),()=>{}, {timeout:6000,maximumAge:600000});}
 
 async function placeName(lat,lng){
-  try{const r=await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`);const d=await r.json();return d.address?.city||d.address?.town||d.address?.county||d.address?.state||d.display_name||`${lat.toFixed(2)}, ${lng.toFixed(2)}`;}catch(_){return `${lat.toFixed(2)}, ${lng.toFixed(2)}`;}
+  try{const r=await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`);const d=await r.json();return d.address?.city||d.address?.town||d.address?.county||d.address?.state||'Location';}catch(_){return 'Location';}
 }
 async function selectDestination(lat,lng,name=''){
   if(state.marker)map.removeLayer(state.marker);
@@ -129,16 +129,16 @@ async function selectDestination(lat,lng,name=''){
   $('placeTitle').textContent='📍 '+name;$('weatherPanel').classList.remove('hidden');$('route').classList.add('hidden');$('status').textContent='Loading current weather…';
   suggestMonths(lat); getWeather(lat,lng,name);
 }
-function weatherText(code){const m={0:'Clear',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Fog',48:'Rime fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',75:'Heavy snow',80:'Rain showers',81:'Rain showers',82:'Heavy showers',95:'Thunderstorm'};return m[code]||'Unknown';}
+function weatherText(code){const m={0:'Clear',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Fog',48:'Rime fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',75:'Heavy snow',77:'Snow grains',80:'Light showers',81:'Showers',82:'Heavy showers',85:'Snow showers',86:'Heavy snow showers',95:'Thunderstorm',96:'Thunderstorm with hail',99:'Thunderstorm with heavy hail'};return m[code]||'Unknown';}
 async function getWeather(lat,lng,name){
   try{
     const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=auto`);
     const d=await r.json(),c=d.current;
-    $('temp').textContent=c.temperature_2m+'°C';$('humidity').textContent=c.relative_humidity_2m+'%';$('condition').textContent=weatherText(c.weather_code);$('wind').textContent=c.wind_speed_10m+' km/h';
-    let a=c.temperature_2m>35?'Very hot: avoid strenuous activity in the afternoon and drink water regularly.':c.temperature_2m>30?'Warm conditions: use sunscreen, rest often, and stay hydrated.':c.temperature_2m<5?'Cold conditions: layer clothing and limit prolonged outdoor exposure.':'Comfortable conditions for sightseeing.';
+    $('temp').textContent=c.temperature_2m+'°C';$('humidity').textContent=c.relative_humidity_2m+'%';$('condition').textContent=weatherText(c.weather_code);$('wind').textContent=c.wind_speed_10m+'km/h';
+    let a=c.temperature_2m>35?'Very hot: avoid strenuous activity in the afternoon and drink water regularly.':c.temperature_2m>30?'Warm conditions: use sunscreen, rest often, and stay hydrated.':c.temperature_2m>15?'Pleasant conditions: ideal for outdoor activities.':'Cool weather: bring a jacket and stay active to stay warm.';
     if(c.relative_humidity_2m>80)a+=' High humidity may make exertion feel harder.';
     const p=profileFromForm();
-    if(p.chronic==='yes')a+=' With a chronic condition, carry medicines and keep the day’s pace flexible.';
+    if(p.chronic==='yes')a+=' With a chronic condition, carry medicines and keep the day\'s pace flexible.';
     if(Number(p.age)>60)a+=' Plan regular rests and avoid the hottest part of the day.';
     if(p.menstruation==='yes')a+=' Choose a lighter itinerary and carry supplies.';
     $('advice').textContent=a;$('status').textContent='Destination selected: '+name;
@@ -157,17 +157,17 @@ $('searchBtn').addEventListener('click',searchPlace);$('search').addEventListene
 async function searchPlace(){
  const q=$('search').value.trim();if(!q)return;
  $('status').textContent='Searching…';
- try{const r=await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(q)}`),d=await r.json();if(!d.length){$('status').textContent='No location found. Try a more specific place name.';return;}selectDestination(Number(d[0].lat),Number(d[0].lon),d[0].display_name);}catch(_){$('status').textContent='Search failed. Please try again.';}
+ try{const r=await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(q)}`),d=await r.json();if(!d.length){$('status').textContent='No location found. Try a different search.';return;} selectDestination(parseFloat(d[0].lat),parseFloat(d[0].lon),d[0].display_name);}catch(_){$('status').textContent='Search failed. Try again.';}
 }
-$('closeDest').addEventListener('click',()=>{if(state.marker)map.removeLayer(state.marker);state.marker=null;state.destination=null;$('weatherPanel').classList.add('hidden');$('route').classList.add('hidden');$('status').textContent='Click the map to select a destination.';});
+$('closeDest').addEventListener('click',()=>{if(state.marker)map.removeLayer(state.marker);state.marker=null;state.destination=null;$('weatherPanel').classList.add('hidden');$('route').classList.add('hidden');$('status').textContent='Destination cleared.';});
 $('routeBtn').addEventListener('click',()=>{$('route').classList.remove('hidden');$('route').scrollIntoView({behavior:'smooth'});});
 $('generate').addEventListener('click',()=>{
  if(!state.destination){alert('Choose a destination first.');return;}
  const s=$('startDate').value,e=$('endDate').value;if(!s||!e){alert('Choose a start and end date.');return;}
  const start=new Date(s+'T00:00:00'),end=new Date(e+'T00:00:00');const days=Math.floor((end-start)/86400000)+1;if(days<1){alert('End date must be on or after the start date.');return;}
  const pace=$('pace').value, p=profileFromForm();let items=[];
- const paceText={relaxed:['a gentle walk or museum','a long lunch and rest','a short scenic activity'],balanced:['a main landmark or guided walk','local lunch','a second attraction or park'],active:['a longer outdoor activity','quick lunch','a second active excursion']}[pace];
- for(let i=0;i<days;i++){const dt=new Date(start);dt.setDate(start.getDate()+i);const label=dt.toLocaleDateString(undefined,{weekday:'long',month:'short',day:'numeric'});let note=`${paceText[0]}, ${paceText[1]}, then ${paceText[2]}.`;if(Number(p.age)>60||p.chronic==='yes')note+=' Keep breaks flexible and avoid peak heat.';items.push(`<div class="route-day"><b>Day ${i+1} — ${label}</b>${note}</div>`);}
+ const paceText={relaxed:['a gentle walk or museum','a long lunch and rest','a short scenic activity'],balanced:['a main landmark or guided walk','local lunch','a second attraction or park'],active:['major landmarks and hiking','active adventures','sports or climbing']};
+ for(let i=0;i<days;i++){const dt=new Date(start);dt.setDate(start.getDate()+i);const label=dt.toLocaleDateString(undefined,{weekday:'long',month:'short',day:'numeric'});let note=`${paceText[pace][0]}, ${paceText[pace][1]}, ${paceText[pace][2]}`;if(i===0)note='Arrive. Rest and explore nearby.';else if(i===days-1)note='Final day: last-minute shopping or sights.';items.push(`<div class="route-day"><b>Day ${i+1}: ${label}</b><span class="small">${note}</span></div>`);}
  $('itinerary').innerHTML=`<h3>${state.destination.name} · ${days} day${days>1?'s':''}</h3>`+items.join('');
 });
 loadProfile();
